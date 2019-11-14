@@ -17,3 +17,5 @@ define('APP_NAME', 'Sistema de Agenda');
 define('INDEX_CONTROLLER', 'agenda');
 #Acción por defecto
 define('INDEX_ACTION', 'agendamiento');
+#Nombre de la base de Datos
+define('DB_DEFAULT', 'agenda');

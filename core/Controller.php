@@ -140,4 +140,60 @@ class Controller {
         exit($form);
     }
 
+    /**
+     * Limpia basura de datos.
+     */
+    protected function limpiaCaracteres(&$txt, $xml = FALSE) {
+        $txt = trim($txt);
+
+        global $latin;
+        uksort($latin, array($this, "sortByLengthReverse"));
+        $txt = str_replace(array_keys($latin), array_values($latin), $txt);
+
+        global $rep;
+        $txt = strtr($txt, $rep);
+
+        // Casos RAROS. Aca se agregan todos las html entities que aparezcan en HEX
+        global $html_entities;
+        foreach ($html_entities as $he) {
+            $cs = html_entity_decode($he, ENT_QUOTES, 'UTF-8');
+            $txt = str_replace($cs, "", $txt);
+        }
+
+        if ($xml === TRUE) {
+            global $otros_caracteres;
+            foreach ($otros_caracteres as $caracter) {
+                $txt = str_replace($caracter, "", $txt);
+            }
+
+            $partes = explode("?>", $txt);
+            if (count($partes) === 2) {
+                global $otros_caracteres_contenido;
+                foreach($otros_caracteres_contenido as $caracter){
+                    $partes[1] = str_replace($caracter, "", $partes[1]);
+                }
+                $txt = $partes[0] . "?>" . $partes[1];
+            }
+
+            $txt = preg_replace('/\s+/', ' ', $txt);
+        }
+
+        // Por si acaso dejamos este ultimo cambio al final.
+        $txt = str_replace("&", "", $txt);
+
+        return $txt;
+    }
+
+    /**
+     * Limpia basura de datos ingresados por usuario para evitar inyección de código.
+     */
+    protected function limpiaEntradasUsuario(&$variable) {
+        $variable = trim($variable);
+        $variable = str_replace("'", '', $variable);
+        $variable = str_replace('"', '', $variable);
+        $variable = str_replace("<", " ", $variable);
+        $variable = str_replace(">", " ", $variable);
+    }
+
+    
 }
