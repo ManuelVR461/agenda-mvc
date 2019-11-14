@@ -6,4 +6,4 @@ require_once 'start.php';
 //}
 
 //require_once 'core/session.php';
-//require_once 'templates/default.php';
+require_once 'templates/default.php';

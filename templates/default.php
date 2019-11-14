@@ -9,6 +9,7 @@
 </head>
 <body>
 	Agendamiento
+	<?php require_once 'menu.php'; ?>
 
 	<?php echo microtime(true)-$start." seg.";?>
 </body>
