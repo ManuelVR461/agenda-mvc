@@ -6,7 +6,7 @@
 if (!isset($_SESSION)) {
   session_start();
 }
-if(empty($_SESSION['data']) || empty($_SESSION['data']['pase']))){
+if(empty($_SESSION['data']) || empty($_SESSION['data']['pase'])){
 	if(!esAjax()){
 		exit(header("Location:login.php?"));
 	}else{

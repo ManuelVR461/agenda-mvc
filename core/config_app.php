@@ -19,3 +19,6 @@ define('INDEX_CONTROLLER', 'agenda');
 define('INDEX_ACTION', 'agendamiento');
 #Nombre de la base de Datos
 define('DB_DEFAULT', 'agenda');
+
+#Nombre de la base de Datos
+define('URL_LOGIN', 'index.php?controller=login&action=login');
